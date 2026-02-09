@@ -1,0 +1,42 @@
+image_size: &image_size [1080,1920]
+
+from_img: True
+TrackingModel:
+  encoder_path: 'trt_models/vit_t_encoder.plan'
+  decoder_path: 'trt_models/mobile_sam_decoder.onnx'
+  image_shape: *image_size
+
+DepthEstimateModel:
+  model_path: 'trt_models/ACV.plan'
+
+
+DetectionModel:
+  model_path: 'stereo_models/link_1014.pt'
+  class_types: ['连接绳','铠装电缆','输油管道']
+
+StereoCam:
+  left_rtsp: "rtsp://root:W51500482E1@192.168.1.59:554/h264"    
+  right_rtsp: "rtsp://root:12345@192.168.1.60:554/h264"        
+  show_origin_image: false
+  CameraRectify:
+
+    K2: [[957.671376277092,0,  966.014301366417],[0, 955.888356381391,580.718539085110],[0,0,1] ]
+
+    K1: [[962.988010051841,0 , 987.715149183363],[0,  961.430527933541, 542.818020265244],[0,0,1] ]
+
+    d2: [-0.297032089816089, 0.128557589180085, -0.000240427539121958, -0.000231103002947378, 0]
+
+    d1: [-0.299752328584700, 0.170632365480533, -0.000297173244957054, -0.000153183442737861, 0]
+
+    R: [[0.999834134980487, 0.0124004888086004, 0.0133390556310843],[ -0.0124799109821935, 0.999904790426368, 0.00588743613781763],[ -0.0132647785393467, -0.00605292984497026, 0.999893698195260]]
+       
+    T: [-238.647120468510, 5.00471270778178, 5.20500392846501]
+    image_shape: *image_size
+LocationUDP:
+  ip: '192.168.1.33'
+  port: 1853
+LocationModel:
+    base_line: 238
+    image_shape: *image_size
+
+

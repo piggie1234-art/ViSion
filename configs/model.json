@@ -1,0 +1,6 @@
+{"loadckpt": "fast_acvnet.ckpt",
+  "maxdisp" : 192,
+  "attention_weights_only" : true,
+"model": "Fast_ACVNet"} 
+  
+  
